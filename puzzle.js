@@ -113,3 +113,10 @@ function draw() {
   ctx.fillStyle = "#e74c3c";
   ctx.fillRect(Math.floor(gridSize / 2) * cellSize, Math.floor(gridSize / 2) * cellSize, cellSize, cellSize);
 }
+
+document.getElementById("reset").addEventListener("click", () => {
+  x = y = Math.floor(gridSize / 2);
+  path.length = 0;
+  path.push({ x, y });
+  draw();
+});
