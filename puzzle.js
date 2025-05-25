@@ -9,6 +9,10 @@ let x = Math.floor(gridSize / 2);
 let y = Math.floor(gridSize / 2);
 const path = [{ x, y }];
 
+//para nivel 15
+let randomControlMap = null;
+
+
 document.getElementById("info").textContent = `Nivel ${level} - ${getControlType(level)}`;
 draw();
 
@@ -23,14 +27,26 @@ document.addEventListener("keydown", (e) => {
 
   // Avanza al siguiente nivel con Enter
   if (e.key === "Enter") {
-    level++;
-    x = y = Math.floor(gridSize / 2);
-    path.length = 0;
-    path.push({ x, y });
-    document.getElementById("info").textContent = `Nivel ${level} - ${getControlType(level)}`;
-    draw();
+    if (level < 15) {
+      level++;
+      x = y = Math.floor(gridSize / 2);
+      path.length = 0;
+      path.push({ x, y });
+
+      // Resetear controles aleatorios al entrar al nivel 15
+      if (level === 15) {
+        randomControlMap = null;
+      }
+
+      document.getElementById("info").textContent = `Nivel ${level} - ${getControlType(level)}`;
+      draw();
+    } else {
+      alert("¡Has completado todos los niveles!");
+    }
   }
 });
+
+
 
 function getMovement(key, lvl) {
   const normal = {
@@ -50,11 +66,22 @@ function getMovement(key, lvl) {
     case lvl <= 14:
       return rotateDirection(normal[key], "counter");
     case lvl === 15:
-      return randomDirection();
+      if (!randomControlMap) {
+        randomControlMap = {};
+        const directions = Object.values(normal);
+        const keys = Object.keys(normal);
+        // Mezcla aleatoria
+        const shuffled = directions.sort(() => 0.5 - Math.random());
+        keys.forEach((key, i) => {
+          randomControlMap[key] = shuffled[i];
+        });
+      }
+      return randomControlMap[key];
     default:
       return null;
   }
 }
+
 
 function invertDirection(move) {
   if (!move) return null;
