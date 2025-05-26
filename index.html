@@ -3,20 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Juego de Puzle</title>
+  <title>Juego de Puzzle</title>
   <style>
-    body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; }
-    canvas { border: 2px solid black; margin-top: 20px; }
-    #info { margin-top: 10px; }
+    body { 
+      font-family: 
+      sans-serif; 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+    }
+    canvas { 
+      border: 2px solid black; 
+      margin-top: 20px; 
+    }
+    .container {
+      display: grid-row;
+    }
+
+
   </style>
 </head>
 <body>
-  <h1>Juego de Puzle</h1>
+  <h1>Juego de Puzzle</h1>
   <p id="info">Nivel 1</p>
-  <canvas id="game" width="800" height="800"></canvas>
+  <div class="container">
+    <h3>Guia</h3>
+    <canvas id="level" width="400" height="400"></canvas>
+    <canvas id="game" width="400" height="400"></canvas>
+  </div>
   <button id="reset">Reiniciar nivel</button>
-
-
   <script src="puzzle.js"></script>
 </body>
 </html>
